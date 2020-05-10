@@ -45,17 +45,17 @@
             </tr>
           </thead>
           <tbody>
-            <% team.tasks.status_order.each do |task| %>
+            <% team.tasks.order_by_status.each do |task| %>
             <% next if current_user.role == 'collaborator' && task.user.id != current_user.id %>
             <% next if current_user.role == 'manager' && current_user.teams.pluck(:id).exclude?(task.team_id) %>
             <tr>
-              <td><%= link_to task.title, task, :remote=>true %></td>
+              <td><%= link_to task.title, task, remote: true %></td>
               <td><%= task.started_at.strftime("%d/%m/%Y at %H:%M") %></td>
               <td><%= task.finished_at.strftime("%d/%m/%Y at %H:%M") if task.finished_at != nil %></td>
               <td><%= task.status %></td>
               <td>
-                <%= link_to 'Done', done_task_path(task), :remote=>true, class: "btn btn-success my-2 btn-sm float-right mx-1 #{task.status != 'doing' ? ' disabled' : nil }" %>
-                <%= link_to 'Cancel', cancel_task_path(task), :remote=>true, class: "btn btn-danger my-2 btn-sm float-right #{task.status != 'doing' ? ' disabled' : nil }" %>
+                <%= link_to 'Done', done_task_path(task), remote: true, class: "btn btn-success my-2 btn-sm float-right mx-1 #{task.status != 'doing' ? ' disabled' : nil }" %>
+                <%= link_to 'Cancel', cancel_task_path(task), remote: true, class: "btn btn-danger my-2 btn-sm float-right #{task.status != 'doing' ? ' disabled' : nil }" %>
               </td>
             </tr>
             <% end %>
@@ -67,4 +67,4 @@
 
 <% end %>
 </div>
-<div id='modal'></div>
+<div id="modal"></div>

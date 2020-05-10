@@ -11,9 +11,9 @@ class TeamsController < ApplicationController
     respond_to do |format|
       if @team.save
         @user_team = UserTeam.create(user_id: current_user.id, team_id: @team.id)
-        format.html { redirect_to dashboard_index_path, notice: 'Team was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Team was successfully created.' }
       else
-        format.html { redirect_to dashboard_index_path, notice: 'Team was not created.' }
+        format.html { redirect_to root_path, notice: 'Team was not created.' }
       end
     end
   end

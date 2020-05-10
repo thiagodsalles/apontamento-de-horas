@@ -2,49 +2,37 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show update cancel done]
 
   def show
-    respond_to do |f|
-      f.js
-    end
+    respond_to { |f| f.js }
   end
 
   def new
     @task = Task.new
-    respond_to do |f|
-      f.js
-    end
+    respond_to { |f| f.js }
   end
 
   def create
     @task = Task.new(task_params)
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to dashboard_index_path, notice: 'Task was successfully created.' }
-      else
-        format.html { redirect_to dashboard_index_path, notice: 'Task was not created.' }
-      end
+    if @task.save
+      redirect_to root_path, notice: 'Task was successfully created.'
+    else
+      redirect_to root_path, error: 'Task was not created.'
     end
   end
 
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to dashboard_index_path, notice: 'Task was successfully updated.' }
-      else
-        format.html { redirect_to dashboard_index_path, notice: 'Task was not updated.' }
-      end
+    if @task.update(task_params)
+      redirect_to root_path, notice: 'Task was successfully updated.'
+    else
+      redirect_to root_path, error: 'Task was not updated.'
     end
   end
 
   def cancel
-    respond_to do |f|
-      f.js
-    end
+    respond_to { |f| f.js }
   end
 
   def done
-    respond_to do |f|
-      f.js
-    end
+    respond_to { |f| f.js }
   end
 
   private
