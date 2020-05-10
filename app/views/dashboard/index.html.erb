@@ -1,0 +1,70 @@
+
+
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1>Teams and Tasks</h1>
+    <p class="lead text-muted">All your teams and tasks are here.</p>
+    <p>
+      <% if current_user.role == 'manager' %>
+        <%= link_to 'New Team', new_team_path, :remote=>true, class: "btn btn-primary my-2" %>
+      <% end %>
+    </p>
+  </div>
+</section>
+
+<div class="accordion" id="accordionExample">
+
+<% @teams.each_with_index do |team,index| %>
+
+  <div class="card">
+    <div class="card-header" id="heading<%= index %>">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="true" aria-controls="collapseOne">
+          <%= team.name %>
+        </button>
+        <% if team.user_teams.pluck(:user_id).include? current_user.id %>
+          <%= link_to 'New Task', new_task_path(team_id: team.id), :remote=>true, class: "btn btn-primary btn-sm float-right" %>
+        <% else %>
+          <% unless current_user.role == 'manager' %>
+            <%= link_to "Join", user_teams_path(user_id: current_user.id, team_id: team.id), method: :post, class: "btn btn-success btn-sm float-right mx-2" %>
+          <% end %>
+        <% end %>
+      </h2>
+    </div>
+
+    <div id="collapse<%= index %>" class="collapse" aria-labelledby="heading<%= index %>" data-parent="#accordionExample">
+      <div >
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Task</th>
+              <th scope="col">Start</th>
+              <th scope="col">Finish</th>
+              <th scope="col">Status</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% team.tasks.status_order.each do |task| %>
+            <% next if current_user.role == 'collaborator' && task.user.id != current_user.id %>
+            <% next if current_user.role == 'manager' && current_user.teams.pluck(:id).exclude?(task.team_id) %>
+            <tr>
+              <td><%= link_to task.title, task, :remote=>true %></td>
+              <td><%= task.started_at.strftime("%d/%m/%Y at %H:%M") %></td>
+              <td><%= task.finished_at.strftime("%d/%m/%Y at %H:%M") if task.finished_at != nil %></td>
+              <td><%= task.status %></td>
+              <td>
+                <%= link_to 'Done', done_task_path(task), :remote=>true, class: "btn btn-success my-2 btn-sm float-right mx-1 #{task.status != 'doing' ? ' disabled' : nil }" %>
+                <%= link_to 'Cancel', cancel_task_path(task), :remote=>true, class: "btn btn-danger my-2 btn-sm float-right #{task.status != 'doing' ? ' disabled' : nil }" %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+</div>
+<div id='modal'></div>

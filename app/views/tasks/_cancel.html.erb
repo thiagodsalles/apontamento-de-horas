@@ -1,0 +1,46 @@
+<!-- Modal -->
+<div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <%= form_with(model: @task, local: true) do |form| %>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cancelar <%= @task.title %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <strong>Started at:</strong>
+            <%= @task.started_at.strftime("%d/%m/%Y at %H:%M") %>
+          </p>
+          <% if @task.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+              <ul>
+                <% @task.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="field">
+            <%= form.label :finished_at %>
+            <%= form.datetime_select :finished_at %>
+          </div>
+          <div class="field">
+            <%= form.label :reason %>
+            <%= form.text_area :reason %>
+          </div>
+          <div>
+            <%= form.hidden_field :status, :value => "canceled" %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= form.submit 'Cancel', class: "btn btn-danger" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
