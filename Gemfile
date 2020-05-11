@@ -38,6 +38,10 @@ group :development, :test do
   gem 'rubocop', require: false
   # rspec-rails brings the RSpec testing framework to Ruby on Rails
   gem 'rspec-rails', '~> 4.0.0'
+  # factory_bot is a fixtures replacement with a straightforward definition syntax
+  gem 'factory_bot_rails'
+  # Shoulda Matchers provides RSpec- and Minitest-compatible one-liners to test common Rails functionality
+  gem 'shoulda-matchers'
 end
 
 group :development do
