@@ -12,5 +12,4 @@ class User < ApplicationRecord
 
   scope :collaborators, -> { where(role: 'collaborator') }
   scope :managers, -> { where(role: 'manager') }
-
 end

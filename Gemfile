@@ -37,6 +37,7 @@ group :development, :test do
   # RuboCop is a Ruby static code analyzer and code formatter.
   gem 'rubocop', require: false
   # rspec-rails brings the RSpec testing framework to Ruby on Rails
+  gem 'pry-byebug'
   gem 'rspec-rails', '~> 4.0.0'
   # factory_bot is a fixtures replacement with a straightforward definition syntax
   gem 'factory_bot_rails'

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'dashboard#index'
 
-  resources :tasks, except: %i[index destroy] do
+  resources :tasks, except: %i[index destroy edit] do
     member do
       get :cancel
       get :done

@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
-  context 'team' do
-    let!(:team) { create(:team) }
+  describe 'Associations' do
+    it { is_expected.to have_many(:users) }
+    it { is_expected.to have_many(:tasks) }
+    it { is_expected.to have_many(:user_teams) }
+  end
 
-    it { should have_many(:users) }
-    it { should have_many(:tasks) }
-    it { should have_many(:user_teams) }
+  describe 'Validations' do
     it { is_expected.to validate_presence_of(:name) }
-    it { expect(team.name).to eq('team-name') }
   end
 end

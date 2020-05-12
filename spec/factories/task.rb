@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :task do
     title { 'task-title' }
-    started_at { DateTime.parse('2020-01-01') }
+    started_at { Time.zone.now.round }
     association :user
     association :team
 
@@ -11,13 +11,13 @@ FactoryBot.define do
 
     trait :done do
       status { 'done' }
-      finished_at { DateTime.parse('2020-01-02') }
+      finished_at { Time.zone.now.round }
     end
 
     trait :canceled do
       status { 'canceled' }
       reason { 'reason-text' }
-      finished_at { DateTime.parse('2020-01-02') }
+      finished_at { Time.zone.now.round }
     end
 
     factory :doing, traits: [:doing]
