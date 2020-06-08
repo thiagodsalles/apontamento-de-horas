@@ -35,3 +35,7 @@ yarn-debug.log*
 .rakeTasks
 .ruby-gemset
 spec/requests/
+
+
+/config/database.yml
+/config/secrets.yml
