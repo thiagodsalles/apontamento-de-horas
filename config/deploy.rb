@@ -6,7 +6,7 @@ set :repo_url, "git@github.com:thiagodsalles/apontamento-de-horas.git"
 set :branch, :capistrano
 set :deploy_to, '/home/deploy/commodre'
 set :pty, true
-set :linked_files, %w{config/database.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml config/master.key}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 set :keep_releases, 5
 set :rvm_type, :user
