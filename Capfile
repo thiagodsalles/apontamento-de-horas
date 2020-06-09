@@ -31,7 +31,7 @@ require "capistrano/rvm"
 # require "capistrano/chruby"
 require "capistrano/bundler"
 #require "bundler/capistrano"
-require "capistrano/rails/assets"
+#require "capistrano/rails/assets"
 require "capistrano/rails/migrations"
 # require "capistrano/passenger"
 require 'capistrano/puma'
